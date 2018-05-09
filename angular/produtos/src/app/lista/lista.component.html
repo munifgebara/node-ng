@@ -1,0 +1,13 @@
+<ul>
+  <li *ngFor="let i of lista">
+    <input type="text" [(ngModel)]="i.nome" />
+    <button (click)="altera(i)">Alterar</button>
+    <button (click)="remove(i.id)">Remover</button>
+  </li>
+</ul>
+
+
+<div>
+  <input type="text" [(ngModel)]="nome" />
+  <button (click)="salva(nome)">Salvar</button>
+</div>
