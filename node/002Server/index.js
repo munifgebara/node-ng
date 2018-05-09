@@ -8,7 +8,6 @@ app.get('/', function (req, res) {
     res.send('Hello World')
 })
 
-
 app.get(`/${produtos.colecao}`, (req, res) => {
     res.send(produtos.lista());
 });
