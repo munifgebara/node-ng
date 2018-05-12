@@ -11,14 +11,14 @@ export class ProdutosService {
   }
 
   consulta() {
-    this.http.get("http://localhost:3000/produtos")
-    .toPromise()
-      .then(
-        (resposta) => { console.log(resposta.json()) }
-      )
-      .catch(
-        (erro) => { console.log(erro) }
-      )
+    return this.http.get("http://localhost:3000/produtos")
+    .toPromise().then(resposta=>resposta.json());
+  }
+
+  inserir(nome:string){
+    return this.http.post("http://localhost:3000/produtos",
+    {nome:nome})
+    .toPromise().then(resposta=>resposta.json());
   }
 
 }
