@@ -1,102 +1,104 @@
 const fs = require('fs');
 const uuidv1 = require('uuid/v1');
 const os = require("os");
+const mysql = require('mysql');
 
 export class SuperService {
 
-    private FN = "";
+    protected connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'senha',
+        database: 'ngangular'
+    });
+
 
     constructor(protected colecao: string, protected atributos: string[]) {
         console.log(`Starting SERVICE ${this.colecao}`);
-        this.FN = this.fileName();
-        if (!fs.existsSync(this.FN)) {
-            console.log("Creating service file");
-            this.saveAll([]);
-            this.initData();
-        }
+        this.connection.connect((erro) => {
+            if (erro) {
+                throw erro;
+            }
+            this.executeQuery(`select count(id) as qtd from ${colecao}`).then(r => {
+                console.log(r);
+                if (r[0]['qtd'] == 0) {
+                    console.log(`Inserting data in ${this.colecao}`);
 
+                    this.initData();
+                }
+            })
+        });
     }
+
 
     initData() {
     }
 
-    fileName() {
-        return `${os.userInfo().homedir}/${this.colecao}.json`;
+    private executeQuery(q) {
+        return new Promise((resolve, reject) => {
+            this.connection.query(q, (error, results, fields) => {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve(results);
+                }
+            })
+        });
     }
 
-    listAll() {
-        let list = JSON.parse(fs.readFileSync(this.FN));
-        if (!list) {
-            list = [];
-            this.saveAll(list);
-        }
-        return list;
-    }
 
-    saveAll(list: any[]) {
-        fs.writeFileSync(this.FN, JSON.stringify(list));
-
+    async listAll() {
+        let r = await this.executeQuery(`select * from ${this.colecao}`);
+        return r;
     }
 
     add(item) {
-        let list = this.listAll();
-        let i = { id: uuidv1() };
-        this.atributos.forEach(att => {
-            i[att] = item[att];
-        });
-        list.push(i);
-        this.saveAll(list);
-        return i;
+        item.id = uuidv1();
+        this.connection.query(`insert into ${this.colecao} SET ?`, item);
+        return item;
     }
 
 
-    getById(id) {
-        let list = this.listAll();
-        let i = list.find(item => item.id == id);
-        if (i) {
-            return i;
+    async getById(id) {
+        let r = await this.executeQuery(`select * from ${this.colecao} where id = '${id}'`);
+        if (r[0]) {
+            return r[0];
         }
         return {};
     }
 
-    listByField(field: string, value: any) {
-        let list = this.listAll();
-        let i = list.filter(item => item[field] == value);
-        if (i) {
-            return i;
-        }
-        return [];
+    async listByField(field: string, value: any) {
+        let r = await this.executeQuery(`select * from ${this.colecao} where ${field} = '${value}'`);
+        return r;
     }
 
 
-    getByField(field: string, value: any) {
-        let list = this.listAll();
-        let i = list.find(item => item[field] == value);
-        if (i) {
-            return i;
+    async getByField(field: string, value: any) {
+        let r = await this.executeQuery(`select * from ${this.colecao} where ${field} = '${value}'`);
+        if (r[0]) {
+            return r[0];
         }
         return {};
     }
 
 
     update = (item) => {
-        let list = this.listAll();
-        let i = list.find(it => item.id == it.id);
-        if (i) {
-            this.atributos.forEach(att => {
-                i[att] = item[att];
-            });
-            this.saveAll(list);
-            return i;
-        }
-        return {};
+
+        let i = { id: item.id };
+        let s = `id='${i.id}' `;
+        this.atributos.forEach(att => {
+            i[att] = item[att];
+            s += `,${att}='${i[att]}' `;
+        });
+        console.log(`update ${this.colecao} set ${s} where id='${i.id}'`);
+        this.connection.query(`update ${this.colecao} set ${s} where id='${i.id}'`);
+        return i;
     }
 
     remove = (id) => {
-        let list = this.listAll();
-        let l = list.filter(it => it.id != id);
-        this.saveAll(l);
-        return {};
+        this.connection.query(`delete from ${this.colecao} where id='${id}'`);
+        return { id: id };
     }
 
 }
