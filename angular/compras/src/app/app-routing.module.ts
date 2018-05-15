@@ -5,8 +5,6 @@ import { CrudComponent as ListasComponet} from './listas/crud/crud.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: 'produtos', component: ProdutoComponet },
-  { path: 'listas', component: ListasComponet },
   { path: 'dashboard', component: DashboardComponent },
   { path: '',
     redirectTo: '/dashboard',

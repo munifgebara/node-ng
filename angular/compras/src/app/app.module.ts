@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProdutosModule } from './produtos/produtos.module';
 import { ListasModule } from './listas/listas.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -14,9 +15,12 @@ import { ListasModule } from './listas/listas.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    
     ProdutosModule,
-    ListasModule
+    ListasModule,
+    AppRoutingModule,
+    
+    NgbModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
