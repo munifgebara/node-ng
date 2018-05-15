@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CrudComponent } from '../produtos/crud/crud.component';
+import { CrudComponent } from './crud/crud.component';
 import { ListaComponent } from './lista/lista.component';
 import { EditaComponent } from './edita/edita.component';
 
