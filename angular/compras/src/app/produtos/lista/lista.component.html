@@ -1,3 +1,8 @@
-<p>
-  lista works!
-</p>
+`
+<button (click)="novo()" >Novo</button>
+  <ul>
+    <li *ngFor="let item of items | async">
+      {{ item.nome }} {{ item.categoria }} {{ item.valor }} <button (click)="excluir(item.id)" >Excluir</button>
+      <button (click)="alterar(item.id)" >Alterar</button>
+    </li>
+  </ul>`
