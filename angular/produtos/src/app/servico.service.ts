@@ -6,7 +6,7 @@ import { Http, Headers, Response } from '@angular/http';
 })
 export class ServicoService {
 
-  public baseUrl = 'http://localhost:3000';
+  public baseUrl = 'http://localhost:3000/api';
 
   public collection = 'produtos';
 

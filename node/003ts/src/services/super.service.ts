@@ -8,7 +8,7 @@ export class SuperService {
     protected connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        password: 'senha',
+        password: 'qwe123qwe',
         database: 'ngangular'
     });
 
