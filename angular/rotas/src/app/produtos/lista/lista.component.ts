@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProdutosService } from '../produtos.service';
 
 @Component({
   selector: 'app-lista',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaComponent implements OnInit {
 
-  constructor() { }
+  lista = [];
+
+  constructor(private service: ProdutosService) { }
 
   ngOnInit() {
+    this.atualizaLista();
+  }
+
+  atualizaLista() {
+    this.service.getAll().then(result => {
+      this.lista = result;
+    })
+
   }
 
 }
