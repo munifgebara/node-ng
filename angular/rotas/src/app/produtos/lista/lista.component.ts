@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutosService } from '../produtos.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista',
@@ -10,7 +11,9 @@ export class ListaComponent implements OnInit {
 
   lista = [];
 
-  constructor(private service: ProdutosService) { }
+  constructor(private service: ProdutosService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.atualizaLista();
@@ -22,14 +25,21 @@ export class ListaComponent implements OnInit {
     })
   }
 
-  novo() {
-    console.log('novo');
-  }
   excluir(id) {
-    console.log('excluir ', id);
+    this.service.remove(id).then(result => {
+      this.atualizaLista();
+    });
+
   }
+
   alterar(id) {
-    console.log('alterar ', id);
+    this.router.navigate(['edita', id],
+      { relativeTo: this.route });
+
+  }
+
+  novo() {
+    this.router.navigate(['edita', 'novo'], { relativeTo: this.route });
   }
 
 }
