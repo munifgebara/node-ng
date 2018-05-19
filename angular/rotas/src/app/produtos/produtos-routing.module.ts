@@ -10,7 +10,7 @@ const routes: Routes = [
     component: CrudComponent,
     children: [
       { path: '', component: ListaComponent },
-      { path: 'edita', component: EditaComponent }
+      { path: 'edita/:id', component: EditaComponent }
     ]
   }
 ];
