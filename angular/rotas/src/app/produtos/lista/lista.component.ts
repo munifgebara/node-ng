@@ -20,7 +20,16 @@ export class ListaComponent implements OnInit {
     this.service.getAll().then(result => {
       this.lista = result;
     })
+  }
 
+  novo() {
+    console.log('novo');
+  }
+  excluir(id) {
+    console.log('excluir ', id);
+  }
+  alterar(id) {
+    console.log('alterar ', id);
   }
 
 }
