@@ -27,16 +27,34 @@ export class SuperApi {
         });
 
         this.router.post(`/api/${this.colecao}`, (req, res) => {
-            res.send(this.service.add(req.body));
+            try {
+                res.send(this.service.add(req.body));
+            }
+            catch (error) {
+                console.log(error);
+                res.send({});
+            }
         });
 
         this.router.put(`/api/${this.colecao}/:id`, (req, res) => {
-            req.body.id = req.params.id;
-            res.send(this.service.update(req.body));
+            try {
+                req.body.id = req.params.id;
+                res.send(this.service.update(req.body));
+            }
+            catch (error) {
+                console.log(error);
+                res.send({});
+            }
         });
 
         this.router.put(`/api/${this.colecao}`, (req, res) => {
-            res.send(this.service.update(req.body));
+            try {
+                res.send(this.service.update(req.body));
+            }
+            catch (error) {
+                console.log(error);
+                res.send({});
+            }
         });
 
 
