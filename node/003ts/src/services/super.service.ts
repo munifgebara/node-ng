@@ -49,56 +49,103 @@ export class SuperService {
 
 
     async listAll() {
-        let r = await this.executeQuery(`select * from ${this.colecao}`);
-        return r;
+        try {
+            let r = await this.executeQuery(`select * from ${this.colecao}`);
+            return r;
+        }
+        catch (error) {
+            console.log("Error", error);
+            return [];
+        }
+
     }
 
     add(item) {
-        item.id = uuidv1();
-        this.connection.query(`insert into ${this.colecao} SET ?`, item);
-        return item;
+        try {
+            item.id = uuidv1();
+            this.connection.query(`insert into ${this.colecao} SET ?`, item);
+            return item;
+        }
+        catch (error) {
+            console.log("Error", error);
+            return {};
+        }
     }
 
 
     async getById(id) {
-        let r = await this.executeQuery(`select * from ${this.colecao} where id = '${id}'`);
-        if (r[0]) {
-            return r[0];
+        try {
+            let r = await this.executeQuery(`select * from ${this.colecao} where id = '${id}'`);
+            if (r[0]) {
+                return r[0];
+            }
+            return {};
         }
-        return {};
+        catch (error) {
+            console.log("Error", error);
+            return {};
+        }
+
     }
 
+
     async listByField(field: string, value: any) {
-        let r = await this.executeQuery(`select * from ${this.colecao} where ${field} = '${value}'`);
-        return r;
+        try {
+            let r = await this.executeQuery(`select * from ${this.colecao} where ${field} = '${value}'`);
+            return r;
+        }
+        catch (error) {
+            console.log("Error", error);
+            return [];
+        }
+
     }
 
 
     async getByField(field: string, value: any) {
-        let r = await this.executeQuery(`select * from ${this.colecao} where ${field} = '${value}'`);
-        if (r[0]) {
-            return r[0];
+        try {
+            let r = await this.executeQuery(`select * from ${this.colecao} where ${field} = '${value}'`);
+            if (r[0]) {
+                return r[0];
+            }
+            return {};
         }
-        return {};
+        catch (error) {
+            console.log("Error", error);
+            return {};
+        }
+
     }
 
 
     update = (item) => {
+        try {
 
-        let i = { id: item.id };
-        let s = `id='${i.id}' `;
-        this.atributos.forEach(att => {
-            i[att] = item[att];
-            s += `,${att}='${i[att]}' `;
-        });
-        console.log(`update ${this.colecao} set ${s} where id='${i.id}'`);
-        this.connection.query(`update ${this.colecao} set ${s} where id='${i.id}'`);
-        return i;
+            let i = { id: item.id };
+            let s = `id='${i.id}' `;
+            this.atributos.forEach(att => {
+                i[att] = item[att];
+                s += `,${att}='${i[att]}' `;
+            });
+            console.log(`update ${this.colecao} set ${s} where id='${i.id}'`);
+            this.connection.query(`update ${this.colecao} set ${s} where id='${i.id}'`);
+            return i;
+        }
+        catch (error) {
+            console.log("Error", error);
+            return {};
+        }
+
     }
 
     remove = (id) => {
-        this.connection.query(`delete from ${this.colecao} where id='${id}'`);
-        return { id: id };
+        try {
+            this.connection.query(`delete from ${this.colecao} where id='${id}'`);
+            return { id: id };
+        }
+        catch (error) {
+            console.log("Error", error);
+            return {};
+        }
     }
-
 }

@@ -1,9 +1,23 @@
-<p>
-  edita produtos works!
-</p>
-<p>
-  Editando produto id {{id}}
-</p>
+<form (ngSubmit)="onSubmit(form)" novalidate #form="ngForm">
+  <div class="form-group">
+    <label>Nome</label>
+    <input type="text" [(ngModel)]="item.nome" name="nome" #nomeField="ngModel" required>
+    <p *ngIf="nomeField.touched && nomeField.invalid" class="alert alert-danger">
+      Nome é obrigatório</p>
+  </div>
+  <div class="form-group">
+    <label>Código</label>
+    <input type="text" [(ngModel)]="item.codigo" name="codigo" #codigoField="ngModel" required>
+    <p *ngIf="codigoField.touched && codigoField.invalid" class="alert alert-danger">Código é obrigatório</p>
+  </div>
+  <div class="form-group">
+    <label>Valor</label>
+    <input type="text" [(ngModel)]="item.valor" name="valor" #valorField="ngModel" required>
+    <p *ngIf="valorField.touched && valorField.invalid" class="alert alert-danger">valor é obrigatório</p>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Salvar</button>
+</form>
+
 <p>
   {{item|json}}
 </p>

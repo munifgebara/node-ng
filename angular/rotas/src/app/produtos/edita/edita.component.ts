@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { ProdutosService } from '../produtos.service';
 
 @Component({
   selector: 'app-edita',
@@ -11,7 +13,7 @@ export class EditaComponent implements OnInit {
   item = { id: "nada" };
   id: any;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private service: ProdutosService) {
 
   }
 
@@ -26,6 +28,20 @@ export class EditaComponent implements OnInit {
     if (this.id === "novo") {
       return;
     }
-    this.item.id = id; //vamos trocar por carregar o produto
+    this.service.getOne(id).then(result => {
+      this.item = result;
+    });
+  }
+
+
+  onSubmit(form: NgForm) {
+    if (this.id === "novo") {
+      this.service.add(this.item);
+    }
+    else {
+      this.item.id = this.id;
+      this.service.update(this.item);
+    }
+    this.router.navigate(['../..'], { relativeTo: this.route })
   }
 }

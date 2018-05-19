@@ -1,0 +1,35 @@
+var jws = require("jws")
+
+
+const signature = jws.sign({
+    header: { alg: 'RS256' },
+    payload: 'bom dia!',
+    key: 'MIIEowIBAAKCAQEA6X1BUv/d1sXEybjNilQ4M77PG/C10shMY42d12ieBRi+Nw0W
+ghLDdMMimCUgXCXl36wU5WSZe7lenK/KIHQD3pnWIxt2cNbylFynwMWum7vfrPcG
+hHjruSDCnGfelHDVjL5uUYjXw50Fp1RcgyLjNofNpu3zHX0njsSRfXEH/TWTU2tj
+TtgUzr1eo52bDE0/pgBz/YavLryGCxN55eTfIjBvu1I2Y + kXBObNyWqD + NbtikEx
+aSTs7VJtW+fv0gl1EzBVtzo / 43YIg+ahaRspBQOKLWSEAHjR8yU9PlyywJO26Iad
+Z/aKEbuqU1fpVwfWqpQbLLXfFVTW+uQJs3DJawIDAQABAoIBAQDNOe8lCQjwMjza
+IbloEMallN1t7ZGjh7K8/kjygV4DlM/8i2BxTBTImIvbtyZOWHFIvHRRfK77dN + Y
+UVsUU2TjT8xMZ2Mfo47soNRCOH9VGzlrSmVMIwzuV8E2wIV/a/4IC4nj2KftpCLI
+BPqbuRqFX7B/PT8neE5Ayr4myCcBg1u+XSErZtlLuTo+Nwb5/goNtk72dfCKPXDl
+uWEr1cpzHUjDFSWUhEJwXTiiOoL1AXF688/O5iKp/sHxxdwvUMoSMN9ZLh9ze61H
+O4yc6geVKK7G395LruqkcRFQzZEtPyH4S1BrKTx8tigxy/DGwcGTTneWTZBi9JOu
+j5TayN9hAoGBAP1ojkhJliDos8zE5ReSXY89hh6QqN+nxYGAnsU76aM1o2bSvAhW
+h1t/HVVaG5Bo/ybv4g76xWfh8yN9F9Lc3ZS5xX5Ka3lOwE8ELj6EbYteUaaRy7Vz
+tb0Dx8m1sockt/jULvIxK5S2GA97FT1Ge8gjIbzF7OlrPb+ie2HgjH4VAoGBAOvg
+jKanJgXOT/A6+bHi5vp3X3z09avUw5gSdD+ZnSH3XDiQ2dWf1aPlEh5mKEOu01st
+d35uNFnvi61GQWl/jrUxPz8fz5vABHQaqCy+bdliSiCwofBTyGeHFtE5xwNMATgL
+        / +KTtBTiiJSa++2GDntVp4sWm5BsuKaFfk9bcYl / AoGAV / pR05UAs0I3EjOVmd5t
+7wocI0Zz6tpTfseJ184aKli39z3YnEh2S / TQ2U4kXbmmQ / 1qjWrQ2GUgxcRrXgDi
+SP1KLLNnpsEJkSVRbNELOySu0lax07htc0b5uPUFG1hLKu93sQwTJlkl91HzKMfs
+t6pCz0gkHVHnKT4e+fc8r5UCgYB9mINL + ZR1YvWNpNlvrrHui8F8d7KYXCIJx0m +
+        07ynaV7hf7990C2hp0eOiDbIUz6XPg5yc5vMh5CIIvCRjCogsKhMpFOXSxcT+12w
+9XToWz29Sk/v96yt83Bi17DwQHglr74Al0U8GaM/ / YZHYyoy4djkZpVOwZVQlaQ7
+        / STnYQKBgA83V29ujqwjDNDB0VW9FzX7kXvwqCUN1AmzksWYDsf3R8B5sakIoBLs
+bj+tz6j0m43TocyJlk583q7k3icsiCPPUn2bxX + Po7QpWwY33ITDM1PoErLPPXyZ
+Gm9kBnC7ch4SDy9kMeSXvr9yoMy+GKlWbIEcZoLhFIhF4BQR7SqR',
+});
+
+
+console.log(signature);

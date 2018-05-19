@@ -14,7 +14,6 @@ class App {
         this.express = express()
         this.express.use(cors());
         this.express.use(bodyParser.json());
-
         this.mountRoutes()
     }
 
