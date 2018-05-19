@@ -36,12 +36,16 @@ export class EditaComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (this.id === "novo") {
-      this.service.add(this.item);
+      this.service.add(this.item).then(r => {
+        this.router.navigate(['../..'], { relativeTo: this.route })
+      });
     }
     else {
       this.item.id = this.id;
-      this.service.update(this.item);
+      this.service.update(this.item).then(r => {
+        this.router.navigate(['../..'], { relativeTo: this.route })
+      });
     }
-    this.router.navigate(['../..'], { relativeTo: this.route })
+
   }
 }
